@@ -1,0 +1,22 @@
+services:
+  php:
+    build:
+      context: ./docker/php
+    volumes:
+      - .:/var/www/dev
+    ports:
+      - "${PHP_PORT:-9000}:9000"
+    depends_on:
+      - web
+
+  web:
+    image: nginx:latest
+    volumes:
+      - .:/var/www/dev:ro
+      - ./docker/nginx/sites.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "${WEB_PORT:-8080}:80"
+
+networks:
+  app_net:
+    driver: bridge
