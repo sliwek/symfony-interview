@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Wyszukaj punkty Inpost{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Wyszukaj punkty Inpost</h1>
+
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-4">
+                {{ form_row(form.city) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.street) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.postCode) }}
+            </div>
+            {% if form.name is defined %}
+                <div class="col-md-4">
+                    {{ form_row(form.name) }}
+                </div>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Szukaj</button>
+        {{ form_end(form) }}
+
+        {% if points is not empty %}
+            <div class="mt-4">
+                <h2>Liczba punktów: {{ count }}</h2>
+                <div class="list-group">
+                    {% for point in points %}
+                        <div class="list-group-item">
+                            Punkt {{ loop.index }}: {{ point.name }}
+                            {{ point.address.street }} {{ point.address.buildingNumber }}
+                            {{ point.address.postCode }} {{ point.address.city }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

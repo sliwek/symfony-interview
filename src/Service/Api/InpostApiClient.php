@@ -21,7 +21,7 @@ final class InpostApiClient implements InpostApiClientInterface
     {
         $url = $this->inpostApiUrl . '/points?city=' . $city;
         $response = $this->httpClient->request(Request::METHOD_GET, $url);
-$x = $response->getContent();
+
         return $this->serializer->deserialize($response->getContent(), PaginatedResponse::class, 'json');
     }
 }
